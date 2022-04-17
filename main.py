@@ -11,7 +11,7 @@ class PaintGUI:
 
         def __init__(self):
 
-            self.root = TK()
+            self.root = Tk()
             self.root.title("Paint Clone")
 
             self.brush_width = 15
@@ -32,19 +32,23 @@ class PaintGUI:
             self.btn_frame.columnconfigure(2, weight=1)
 
             self.clear_btn = Button(self.btn_frame, text="Clear", command=self.clear)
-            self.clear_btn.grad(row=0, column=1, sticky="W+E")
+            self.clear_btn.grid(row=0, column=1, sticky=W+E)
 
             self.save_btn = Button(self.btn_frame, text="Save", command=self.save)
-            self.save_btn.grad(row=1, column=2, sticky="W+E")
+            self.save_btn.grid(row=1, column=2, sticky=W+E)
             
             self.bplus_btn = Button(self.btn_frame, text="B+", command=self.brush_plus)
-            self.bplus_btn.grad(row=0, column=0, sticky="W+E")
+            self.bplus_btn.grid(row=0, column=0, sticky=W+E)
             
             self.bminus_btn = Button(self.btn_frame, text="B-", command=self.brush_minus)
-            self.bminus_btn.grad(row=1, column=0, sticky="W+E")
+            self.bminus_btn.grid(row=1, column=0, sticky=W+E)
 
             self.color_btn = Button(self.btn_frame, text="Change Color", command=self.change_color)
-            self.color_btn.grad(row=1, column=1, sticky="W+E")
+            self.color_btn.grid(row=1, column=1, sticky=W+E)
+
+            self.root.protocol("WM_DELETE_WINDOW", self.on_closing)
+            self.root.attributes("-topmost", True)
+            self.root.mainloop()
 
         def paint(self):
             pass
@@ -63,3 +67,9 @@ class PaintGUI:
 
         def change_color(self):
             pass
+
+        def on_closing(self):
+            pass 
+
+PaintGUI()
+    
