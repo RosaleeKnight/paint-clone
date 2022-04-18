@@ -35,7 +35,7 @@ class PaintGUI:
             self.clear_btn.grid(row=0, column=1, sticky=W+E)
 
             self.save_btn = Button(self.btn_frame, text="Save", command=self.save)
-            self.save_btn.grid(row=1, column=2, sticky=W+E)
+            self.save_btn.grid(row=0, column=2, sticky=W+E)
             
             self.bplus_btn = Button(self.btn_frame, text="B+", command=self.brush_plus)
             self.bplus_btn.grid(row=0, column=0, sticky=W+E)
@@ -43,18 +43,22 @@ class PaintGUI:
             self.bminus_btn = Button(self.btn_frame, text="B-", command=self.brush_minus)
             self.bminus_btn.grid(row=1, column=0, sticky=W+E)
 
-            self.color_btn = Button(self.btn_frame, text="Change Color", command=self.change_color)
-            self.color_btn.grid(row=1, column=1, sticky=W+E)
+            self.colour_btn = Button(self.btn_frame, text="Change Colour", command=self.change_colour)
+            self.colour_btn.grid(row=1, column=1, sticky=W+E)
 
             self.root.protocol("WM_DELETE_WINDOW", self.on_closing)
             self.root.attributes("-topmost", True)
             self.root.mainloop()
 
-        def paint(self):
-            pass
+        def paint(self, event):
+            x1, y1 = (event.x - 1), (event.y - 1)
+            x2, y2 = (event.x + 1), (event.y + 1)
+            self.cnv.create_rectangle (x1, y1, x2, y2, outline=self.current_colour, fill=self.current_colour, width=self.brush_width)
+            self.draw.rectangle([x1, y1, x2 + self.brush_width, y2 + self.brush_width], outline=self.current_colour, fill=self.current_colour, width=self.brush_width)
 
         def clear(self):
-            pass
+            self.cnv.delete("all")
+            self.draw.rectangle([0,0,1000,1000], fill="white")
 
         def save(self):
             pass
@@ -65,7 +69,7 @@ class PaintGUI:
         def brush_minus(self):
             pass
 
-        def change_color(self):
+        def change_colour(self):
             pass
 
         def on_closing(self):
