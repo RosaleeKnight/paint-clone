@@ -78,11 +78,15 @@ class PaintGUI:
                 self.brush_width -= 1
 
         def change_colour(self):
-            print(colorchooser.askcolor())
             _, self.current_colour = colorchooser.askcolor(title="Choose A Colour")
 
         def on_closing(self):
-            pass
+            answer = messagebox.askyesnocancel("Quit", "Do you want to save your work?", parent=self.root)
+            if answer is not None:
+                if answer: 
+                    self.save()
+                self.root.destroy()
+                exit(0)
 
 PaintGUI()
     
