@@ -1,4 +1,8 @@
+from fileinput import filename
 from tkinter import *
+from tkinter import filedialog
+from tkinter import messagebox, messagebox, colorchooser
+from turtle import title
 from PIL import Image, ImageDraw
 import PIL
 
@@ -56,24 +60,29 @@ class PaintGUI:
             self.cnv.create_rectangle (x1, y1, x2, y2, outline=self.current_colour, fill=self.current_colour, width=self.brush_width)
             self.draw.rectangle([x1, y1, x2 + self.brush_width, y2 + self.brush_width], outline=self.current_colour, fill=self.current_colour, width=self.brush_width)
 
+            if filename != "":
+                self.image.save(filename)
+
         def clear(self):
             self.cnv.delete("all")
             self.draw.rectangle([0,0,1000,1000], fill="white")
 
         def save(self):
-            pass
+            filename = filedialog.asksaveasfilename(initialfile="untitled.png", defaultextension="png", filetypes=[("PNG", ".png"), ("JPG", ".jpg")])
 
         def brush_plus(self):
-            pass
+            self.brush_width += 1
 
         def brush_minus(self):
-            pass
+            if self.brush_width > 1:
+                self.brush_width -= 1
 
         def change_colour(self):
-            pass
+            print(colorchooser.askcolor())
+            _, self.current_colour = colorchooser.askcolor(title="Choose A Colour")
 
         def on_closing(self):
-            pass 
+            pass
 
 PaintGUI()
     
